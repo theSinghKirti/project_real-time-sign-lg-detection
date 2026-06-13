@@ -59,7 +59,7 @@ export default function Sidebar() {
               <Hand className="text-white" size={20} />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">SignBridge</h1>
+              <h1 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">Zenith Vision</h1>
               <p className="text-[10px] font-medium text-indigo-500 dark:text-indigo-400 uppercase tracking-wider">AI Translator</p>
             </div>
           </div>
