@@ -51,7 +51,7 @@ export default function LandingPage() {
             <div className="w-9 h-9 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-indigo-500/25">
               <Hand className="text-white" size={18} />
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">SignBridge</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Zenith Vision</span>
           </div>
           <div className="flex items-center gap-4">
             <button onClick={toggleDarkMode} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
@@ -196,7 +196,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-indigo-600 dark:text-indigo-400 text-sm font-semibold uppercase tracking-wider mb-3">Benefits</p>
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Why SignBridge Matters</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Why Zenith Vision Matters</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((b, i) => (
@@ -217,7 +217,7 @@ export default function LandingPage() {
           <p className="text-indigo-600 dark:text-indigo-400 text-sm font-semibold uppercase tracking-wider mb-3">Future Scope</p>
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">The Road Ahead</h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-10">
-            SignBridge aims to expand beyond recognition into a full communication ecosystem:
+            Zenith Vision aims to expand beyond recognition into a full communication ecosystem:
             integration with smart devices, AR glasses for real-time overlay translation,
             regional sign language support, and community-driven sign contributions.
           </p>
@@ -256,7 +256,7 @@ export default function LandingPage() {
             <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
               <Hand className="text-white" size={16} />
             </div>
-            <span className="font-semibold text-gray-900 dark:text-white">SignBridge</span>
+            <span className="font-semibold text-gray-900 dark:text-white">Zenith Vision</span>
           </div>
           <p className="text-sm text-gray-500 dark:text-gray-400">AI-Powered Sign Language Translation Platform</p>
           <p className="text-sm text-gray-400 dark:text-gray-500">Academic Research Project</p>
