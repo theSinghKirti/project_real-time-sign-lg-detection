@@ -7,7 +7,7 @@ uvicorn[standard]>=0.29.0
 
 # ML / Computer Vision
 # Use tensorflow-cpu — Render has no GPU; this is smaller & faster to install
-tensorflow-cpu>=2.15.0,<2.17.0
+tensorflow-cpu>=2.15.0
 mediapipe>=0.10.9
 opencv-python-headless>=4.9.0.80
 numpy>=1.26.0,<2.0.0
