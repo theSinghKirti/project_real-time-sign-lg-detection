@@ -36,9 +36,12 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 CONFIDENCE_THRESHOLD: float = 0.70
-MODEL_PATH: str = "sign_language_model.keras"
-ENCODER_PATH: str = "label_encoder.pkl"
-LANDMARKER_PATH: str = "hand_landmarker.task"
+# Use absolute paths so the server finds the model files regardless of the
+# working directory — critical for Render and other cloud deployments.
+BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH: str = os.path.join(BASE_DIR, "sign_language_model.keras")
+ENCODER_PATH: str = os.path.join(BASE_DIR, "label_encoder.pkl")
+LANDMARKER_PATH: str = os.path.join(BASE_DIR, "hand_landmarker.task")
 # How many consecutive identical predictions before appending to word buffer
 STABLE_THRESHOLD: int = 5
 
