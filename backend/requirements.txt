@@ -6,8 +6,9 @@ fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
 
 # ML / Computer Vision
-# Use tensorflow-cpu — Render has no GPU; this is smaller & faster to install
-tensorflow-cpu>=2.15.0
+# tflite-runtime is a lightweight inference-only runtime (~10 MB).
+# It replaces full TensorFlow (~500 MB) to stay within Render free tier limits.
+tflite-runtime>=2.14.0
 mediapipe>=0.10.9
 opencv-python-headless>=4.9.0.80
 numpy>=1.26.0,<2.0.0

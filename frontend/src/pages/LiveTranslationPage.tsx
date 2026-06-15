@@ -53,7 +53,8 @@ export default function LiveTranslationPage() {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const res = await fetch('http://localhost:8000/');
+        const backendUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
+        const res = await fetch(`${backendUrl}/`);
         if (!res.ok) throw new Error('Non-OK response');
         setApiError(false);
       } catch {
@@ -281,11 +282,11 @@ export default function LiveTranslationPage() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
           <WifiOff size={16} className="flex-shrink-0" />
           <span>
-            Backend unreachable. Run{' '}
+            Backend unreachable. Make sure the backend service is running and{' '}
             <code className="font-mono bg-red-100 dark:bg-red-900/40 px-1.5 rounded">
-              python app.py
+              VITE_API_URL
             </code>{' '}
-            in your project folder, then try again.
+            is set correctly in your Vercel environment variables.
           </span>
         </div>
       )}

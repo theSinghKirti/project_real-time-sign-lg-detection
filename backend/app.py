@@ -10,6 +10,9 @@
 #   DELETE /api/history  — clears history and word buffer
 #
 # Run: uvicorn app:app --reload --host 0.0.0.0 --port 8000
+#
+# NOTE: Uses tflite-runtime instead of full TensorFlow to stay within
+#       Render free tier memory limits (512 MB).
 # =============================================================================
 
 from __future__ import annotations
@@ -23,7 +26,12 @@ from typing import Any
 import cv2
 import mediapipe as mp
 import numpy as np
-import tensorflow as tf
+try:
+    # Render / production: lightweight inference-only runtime
+    import tflite_runtime.interpreter as tflite
+except ImportError:
+    # Local dev fallback: use TensorFlow's bundled TFLite
+    import tensorflow.lite as tflite
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -39,15 +47,18 @@ CONFIDENCE_THRESHOLD: float = 0.70
 # Use absolute paths so the server finds the model files regardless of the
 # working directory — critical for Render and other cloud deployments.
 BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH: str = os.path.join(BASE_DIR, "sign_language_model.keras")
+MODEL_PATH: str = os.path.join(BASE_DIR, "sign_language_model.tflite")
 ENCODER_PATH: str = os.path.join(BASE_DIR, "label_encoder.pkl")
 LANDMARKER_PATH: str = os.path.join(BASE_DIR, "hand_landmarker.task")
 # How many consecutive identical predictions before appending to word buffer
 STABLE_THRESHOLD: int = 5
 
-# ── Load Keras Model & Label Encoder ──────────────────────────────────────────
-print("Loading model and label encoder...")
-model = tf.keras.models.load_model(MODEL_PATH)
+# ── Load TFLite Model & Label Encoder ─────────────────────────────────────────
+print("Loading TFLite model and label encoder...")
+interpreter = tflite.Interpreter(model_path=MODEL_PATH)
+interpreter.allocate_tensors()
+_input_details  = interpreter.get_input_details()
+_output_details = interpreter.get_output_details()
 
 with open(ENCODER_PATH, "rb") as _f:
     label_encoder = pickle.load(_f)
@@ -185,9 +196,13 @@ def predict(req: PredictRequest) -> dict:
         # Normalized (0-1) coordinates — frontend scales to canvas pixels
         landmarks.append({"x": lm.x, "y": lm.y, "z": lm.z})
 
-    # ── 4. Keras model inference ──────────────────────────────────────────────
-    input_data = np.asarray([coords], dtype=np.float32)
-    prediction = model.predict(input_data, verbose=0)          # shape (1, N)
+    # ── 4. TFLite model inference ─────────────────────────────────────────────
+    input_data = np.asarray([coords], dtype=np.float32).reshape(
+        _input_details[0]["shape"]
+    )
+    interpreter.set_tensor(_input_details[0]["index"], input_data)
+    interpreter.invoke()
+    prediction = interpreter.get_tensor(_output_details[0]["index"])  # shape (1, N)
     predicted_idx = int(np.argmax(prediction))
     confidence = float(prediction[0][predicted_idx])
 
