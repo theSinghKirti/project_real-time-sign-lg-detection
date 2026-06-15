@@ -257,15 +257,15 @@ export default function LiveTranslationPage() {
     confidence >= 85
       ? 'text-green-600 dark:text-green-400'
       : confidence >= 70
-      ? 'text-amber-600 dark:text-amber-400'
-      : 'text-red-600 dark:text-red-400';
+        ? 'text-amber-600 dark:text-amber-400'
+        : 'text-red-600 dark:text-red-400';
 
   const confBarClass =
     confidence >= 85
       ? 'bg-gradient-to-r from-green-500 to-emerald-400'
       : confidence >= 70
-      ? 'bg-gradient-to-r from-amber-500 to-orange-400'
-      : 'bg-gradient-to-r from-red-500 to-rose-400';
+        ? 'bg-gradient-to-r from-amber-500 to-orange-400'
+        : 'bg-gradient-to-r from-red-500 to-rose-400';
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -383,9 +383,8 @@ export default function LiveTranslationPage() {
                   Word Buffer
                 </p>
                 <p
-                  className={`text-2xl font-bold tracking-[0.2em] transition-all duration-300 ${
-                    word ? 'gradient-text' : 'text-gray-300 dark:text-gray-600'
-                  }`}
+                  className={`text-2xl font-bold tracking-[0.2em] transition-all duration-300 ${word ? 'gradient-text' : 'text-gray-300 dark:text-gray-600'
+                    }`}
                 >
                   {word || '—'}
                 </p>
@@ -405,11 +404,10 @@ export default function LiveTranslationPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setActive(!active)}
-              className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                active
-                  ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/25'
-                  : 'gradient-bg text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40'
-              }`}
+              className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${active
+                ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/25'
+                : 'gradient-bg text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40'
+                }`}
             >
               {active ? (
                 <><AlertCircle size={18} /> Stop Translation</>
@@ -420,11 +418,10 @@ export default function LiveTranslationPage() {
             <button
               onClick={() => setVoiceActive(!voiceActive)}
               title={voiceActive ? 'Mute voice output' : 'Enable voice output'}
-              className={`p-3 rounded-xl transition-all duration-200 ${
-                voiceActive
-                  ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-400'
-              }`}
+              className={`p-3 rounded-xl transition-all duration-200 ${voiceActive
+                ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-400'
+                }`}
             >
               {voiceActive ? <Volume2 size={20} /> : <MicOff size={20} />}
             </button>
@@ -444,9 +441,8 @@ export default function LiveTranslationPage() {
             <div className="text-center py-2">
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Detected Sign</p>
               <p
-                className={`text-6xl font-extrabold transition-all duration-300 ${
-                  active && currentSign ? 'gradient-text' : 'text-gray-300 dark:text-gray-600'
-                }`}
+                className={`text-6xl font-extrabold transition-all duration-300 ${active && currentSign ? 'gradient-text' : 'text-gray-300 dark:text-gray-600'
+                  }`}
               >
                 {active && currentSign ? currentSign : '—'}
               </p>
@@ -490,21 +486,19 @@ export default function LiveTranslationPage() {
                 {topPredictions.map((p, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <span
-                      className={`text-sm font-bold w-8 text-center rounded-lg py-0.5 ${
-                        i === 0
-                          ? 'gradient-text'
-                          : 'text-gray-400 dark:text-gray-500'
-                      }`}
+                      className={`text-sm font-bold w-8 text-center rounded-lg py-0.5 ${i === 0
+                        ? 'gradient-text'
+                        : 'text-gray-400 dark:text-gray-500'
+                        }`}
                     >
                       {p.class}
                     </span>
                     <div className="flex-1 progress-bar">
                       <div
-                        className={`progress-bar-fill ${
-                          i === 0
-                            ? 'bg-gradient-to-r from-indigo-500 to-purple-500'
-                            : 'bg-gray-300 dark:bg-gray-600'
-                        }`}
+                        className={`progress-bar-fill ${i === 0
+                          ? 'bg-gradient-to-r from-indigo-500 to-purple-500'
+                          : 'bg-gray-300 dark:bg-gray-600'
+                          }`}
                         style={{ width: `${p.confidence}%` }}
                       />
                     </div>
@@ -522,31 +516,28 @@ export default function LiveTranslationPage() {
             <div className="grid grid-cols-3 gap-3 text-center">
               <div>
                 <div
-                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${
-                    active ? 'bg-green-500 animate-pulse' : 'bg-gray-300 dark:bg-gray-600'
-                  }`}
+                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${active ? 'bg-green-500 animate-pulse' : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
                 />
                 <p className="text-[10px] text-gray-500 dark:text-gray-400">Camera</p>
               </div>
               <div>
                 <div
-                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${
-                    active && !apiError
-                      ? 'bg-blue-500 animate-pulse'
-                      : apiError
+                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${active && !apiError
+                    ? 'bg-blue-500 animate-pulse'
+                    : apiError
                       ? 'bg-red-500'
                       : 'bg-gray-300 dark:bg-gray-600'
-                  }`}
+                    }`}
                 />
                 <p className="text-[10px] text-gray-500 dark:text-gray-400">AI Model</p>
               </div>
               <div>
                 <div
-                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${
-                    voiceActive && active
-                      ? 'bg-purple-500 animate-pulse'
-                      : 'bg-gray-300 dark:bg-gray-600'
-                  }`}
+                  className={`w-2 h-2 rounded-full mx-auto mb-1.5 ${voiceActive && active
+                    ? 'bg-purple-500 animate-pulse'
+                    : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
                 />
                 <p className="text-[10px] text-gray-500 dark:text-gray-400">Voice</p>
               </div>
